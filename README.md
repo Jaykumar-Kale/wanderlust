@@ -18,12 +18,9 @@ This project is built as part of my **full-stack development journey** and portf
 ---
 
 ## 🛠 Tech Stack
-**Frontend:** React.js / Next.js, Tailwind CSS  
+**Frontend:** React.js 
 **Backend:** Node.js, Express.js  
 **Database:** MongoDB (Mongoose ODM)  
 **Authentication:** JWT, bcrypt (OAuth planned)  
 **Deployment:** (Planned: Vercel / Netlify for frontend, Render / Railway for backend)
 
----
-
-## 📂 Project Structure
