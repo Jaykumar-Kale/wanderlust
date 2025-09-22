@@ -1,3 +1,14 @@
+// app.js
+// This is the main application file where we set up the Express server, connect to MongoDB, and define routes for CRUD operations on listings.
+// We use EJS as the templating engine to render views.
+// CRUD Operations: Create, Read, Update, Delete
+// We also use method-override to support PUT and DELETE methods in forms.
+// The server listens on port 8080.
+// We have routes for listing all listings, showing a single listing, creating a new listing, editing a listing, updating a listing, and deleting a listing.
+// We also have a root route that sends a simple greeting message.
+// Note: Ensure MongoDB is running locally on the default port before starting the server.
+// Note: The database name is "wanderlust".
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -74,20 +85,6 @@ app.delete("/listings/:id", async (req, res) => {
   console.log(deletedListing);
   res.redirect("/listings");
 });
-
-// app.get("/testListing", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "My New Villa",
-//     description: "By the beach",
-//     price: 1200,
-//     location: "Calangute, Goa",
-//     country: "India",
-//   });
-
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("successful testing");
-// });
 
 app.listen(8080, () => {
   console.log("server is listening to port 8080");
