@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import { authAPI } from '../services/api';
+import UserAvatar from '../components/UserAvatar';
 
 export default function Profile() {
   const { id } = useParams();
@@ -35,7 +36,9 @@ export default function Profile() {
           <Col md={6} className="mx-auto">
             <Card className="border-0 shadow-sm">
               <Card.Body className="p-5 text-center">
-                <div style={{ fontSize: '60px', marginBottom: '20px' }}>👤</div>
+                <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+                  <UserAvatar user={user} size="120px" />
+                </div>
                 <h2>{user.username}</h2>
                 <p className="text-muted">{user.email}</p>
                 {user.bio && (

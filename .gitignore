@@ -11,6 +11,9 @@ package-lock.json
 .env.local
 .env.*.local
 
+# Note: .env.production for frontend is safe to commit (no secrets)
+# But we'll set REACT_APP_API_URL in Vercel dashboard instead
+
 # IDE and Editor
 .vscode/
 .idea/

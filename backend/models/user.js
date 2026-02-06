@@ -40,4 +40,19 @@ userSchema.plugin(passportLocalMongoose, {
   usernameField: "username"
 });
 
+// Method to get profile image or default avatar
+userSchema.methods.getProfileImage = function() {
+  // If user has uploaded a profile image, return it
+  if (this.profileImage && this.profileImage.url) {
+    return this.profileImage.url;
+  }
+  // Otherwise, return a generated avatar based on username
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(this.username)}&background=fe424d&color=fff&bold=true&size=200`;
+};
+
+// Virtual field for profile image
+userSchema.virtual('defaultProfileImage').get(function() {
+  return this.getProfileImage();
+});
+
 module.exports = mongoose.model("User", userSchema);

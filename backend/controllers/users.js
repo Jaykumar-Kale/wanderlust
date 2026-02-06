@@ -48,7 +48,8 @@ module.exports.register = async (req, res) => {
       user: {
         id: registeredUser._id,
         username: registeredUser.username,
-        email: registeredUser.email
+        email: registeredUser.email,
+        profileImage: registeredUser.getProfileImage()
       }
     });
   } catch (error) {
@@ -79,7 +80,7 @@ module.exports.login = async (req, res) => {
     }
 
     const isPasswordValid = await user.authenticate(password);
-    if (!isPasswordValid[0]) {
+    if (!isPasswordValid) {
       return res.status(401).json({
         success: false,
         message: "Invalid username or password"
@@ -95,7 +96,8 @@ module.exports.login = async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        profileImage: user.getProfileImage()
       }
     });
   } catch (error) {
@@ -109,9 +111,11 @@ module.exports.login = async (req, res) => {
 module.exports.getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-hash -salt");
+    const userWithImage = user.toObject();
+    userWithImage.profileImage = user.getProfileImage();
     res.json({
       success: true,
-      user
+      user: userWithImage
     });
   } catch (error) {
     res.status(500).json({
@@ -130,9 +134,11 @@ module.exports.getUserProfile = async (req, res) => {
         message: "User not found"
       });
     }
+    const userWithImage = user.toObject();
+    userWithImage.profileImage = user.getProfileImage();
     res.json({
       success: true,
-      user
+      user: userWithImage
     });
   } catch (error) {
     res.status(500).json({
@@ -151,10 +157,12 @@ module.exports.updateProfile = async (req, res) => {
       { new: true }
     );
 
+    const userWithImage = user.toObject();
+    userWithImage.profileImage = user.getProfileImage();
     res.json({
       success: true,
       message: "Profile updated successfully",
-      user
+      user: userWithImage
     });
   } catch (error) {
     res.status(500).json({

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, Spinner, Alert, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { listingAPI, reviewAPI } from '../services/api';
+import UserAvatar from '../components/UserAvatar';
 
 export default function ListingDetail() {
   const { id } = useParams();
@@ -190,11 +191,17 @@ export default function ListingDetail() {
         <Col md={4}>
           <Card className="sticky-top" style={{ top: '20px' }}>
             <Card.Body>
-              <h3 className="price-tag mb-3">${listing.price} / night</h3>
+              <h3 className="price-tag mb-3">₹{listing.price?.toLocaleString()} / night</h3>
               <Button className="btn-primary-custom w-100 mb-3">Book Now</Button>
               
               <div className="mb-3">
-                <p><strong>Host:</strong> {listing.owner?.username}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+                  <UserAvatar user={listing.owner} size="50px" />
+                  <div>
+                    <p style={{ margin: 0, fontWeight: 600 }}>{listing.owner?.username}</p>
+                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#999' }}>Host</p>
+                  </div>
+                </div>
                 <p className="small text-muted">{listing.owner?.bio || 'No bio available'}</p>
               </div>
 
