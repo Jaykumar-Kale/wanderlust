@@ -1,5 +1,3 @@
-// This is the Fake Data Taken for the purpose of testing and seeding the database;
-
 const sampleListings = [
   {
     title: "Cozy Beachfront Cottage",

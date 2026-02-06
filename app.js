@@ -1,24 +1,26 @@
-// app.js
-// This is the main application file where we set up the Express server, connect to MongoDB, and define routes for CRUD operations on listings.
-// We use EJS as the templating engine to render views.
-// CRUD Operations: Create, Read, Update, Delete
-// We also use method-override to support PUT and DELETE methods in forms.
-// The server listens on port 8080.
-// We have routes for listing all listings, showing a single listing, creating a new listing, editing a listing, updating a listing, and deleting a listing.
-// We also have a root route that sends a simple greeting message.
-// Note: Ensure MongoDB is running locally on the default port before starting the server.
-// Note: The database name is "wanderlust".
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
-const ejsMate = require("ejs-mate");
+const ejsmate = require("ejs-mate");
+const ExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+//require routes
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
-
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
@@ -29,67 +31,92 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.engine("ejs", ejsmate);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-app.get("/", (req, res) => {
-  res.send("Hi, I am root");
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
 });
 
-//Index Route
-app.get("/listings", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+store.on("error", () => {
+  console.log("Error in Mongo Session Store : ", err);
 });
 
-//New Route
-app.get("/listings/new", (req, res) => {
-  res.render("listings/new.ejs");
+const sessionOptions = {
+  store,
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    // secure:true, //only works on https
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //1 week from now
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
+
+// app.get("/", (req, res) => {
+//   res.send("Hi, I am root");
+// });
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use(passport.session());
+app.use(passport.initialize());
+passport.use(new LocalStrategy(User.authenticate())); //authenticate method is added by passport-local-mongoose
+
+passport.serializeUser(User.serializeUser()); //serializeUser method is added by passport-local-mongoose
+passport.deserializeUser(User.deserializeUser()); //deserializeUser method is added by passport-local-mongoose
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
 });
 
-//Show Route
-app.get("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/show.ejs", { listing });
+// app.get("/demouser", async (req, res) => {
+//   let fakeuser = new User({
+//     email: "abc@gmail.com",
+//     username: "demouser",
+//   });
+//   const newUser = await User.register(fakeuser, "helloworld"); //register method is added by passport-local-mongoose
+//   res.send(newUser);
+// });
+
+//use routes
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/", userRouter);
+
+// ------------------- Routes -----------------------
+
+// ---------- Catch-all 404 (keep last before error handler) ----------
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page Not Found !!"));
 });
 
-//Create Route
-app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listings");
+// ---------- Error handler ----------
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  if (!err.message) err.message = "Something went wrong!!!";
+  res.status(statusCode).render("error.ejs", { err });
 });
 
-//Edit Route
-app.get("/listings/:id/edit", async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/edit.ejs", { listing });
-});
-
-//Update Route
-app.put("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  res.redirect(`/listings/${id}`);
-});
-
-//Delete Route
-app.delete("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  let deletedListing = await Listing.findByIdAndDelete(id);
-  console.log(deletedListing);
-  res.redirect("/listings");
-});
-
+// ---------- Server ----------
 app.listen(8080, () => {
   console.log("server is listening to port 8080");
 });
