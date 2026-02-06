@@ -1,96 +1,94 @@
+# 🏡 WanderLust - MERN Stack Application
+
 <div align="center">
-  <h1>🏡 WanderLust</h1>
-  <p><strong>Your Gateway to Unique Stays Around the World</strong></p>
-  
-  ![Node.js](https://img.shields.io/badge/Node.js-16.x-green?logo=node.js)
-  ![Express.js](https://img.shields.io/badge/Express.js-4.x-blue?logo=express)
-  ![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?logo=mongodb)
-  ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-  
+
+![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-16.x-339933?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-13AA52?logo=mongodb)
+![Express](https://img.shields.io/badge/Express.js-4.x-000000?logo=express)
+![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC?logo=redux)
+
+**A full-stack vacation rental marketplace built with modern web technologies**
+
+[Setup Guide](#-quick-start) • [Features](#-features) • [Deployment](#-deployment) • [License](#-license)
+
 </div>
 
 ---
 
-## 📖 About The Project
+## 📌 About
 
-**WanderLust** is a full-stack web application inspired by Airbnb, designed to revolutionize the way travelers discover and book unique accommodations worldwide. This platform empowers users to explore diverse stays, manage their own property listings, and connect with a global community of hosts and travelers.
+**WanderLust** is a production-ready MERN application that lets users list, discover, and book unique accommodations. It features user authentication, property management, reviews and ratings, search filtering, and a responsive UI—all built with modern JavaScript frameworks.
 
-Built as a comprehensive showcase of modern full-stack development practices, WanderLust demonstrates proficiency in RESTful API design, database management, user authentication, and responsive UI/UX implementation.
-
-### 🎯 Project Goals
-
-- Create an intuitive, user-friendly platform for property rentals
-- Implement secure authentication and authorization
-- Develop a scalable architecture for future enhancements
-- Demonstrate best practices in full-stack web development
+Built to demonstrate:
+- Full-stack MERN architecture
+- Secure JWT authentication
+- Redux state management
+- RESTful API design
+- Responsive React frontend
+- Cloud deployment practices
 
 ---
 
 ## ✨ Features
 
-### Core Functionality
+### Authentication & Users
+- ✅ User signup/login with password hashing (bcrypt)
+- ✅ JWT-based authentication
+- ✅ Protected routes and endpoints
+- ✅ User profiles with bio and contact info
+- ✅ Host/guest role management
 
-- 🔐 **User Authentication & Authorization**
-  - Secure signup and login with password hashing (bcrypt)
-  - Session management with Passport.js
-  - Protected routes and role-based access control
+### Listings Management
+- ✅ Create, read, update, delete (CRUD) listings
+- ✅ Rich listing details (location, price, amenities, capacity)
+- ✅ Category-based organization
+- ✅ Image upload support
+- ✅ Geolocation ready
 
-- 🏠 **Property Management**
-  - Create, read, update, and delete (CRUD) operations for listings
-  - Image upload and cloud storage integration (Cloudinary)
-  - Rich property descriptions with amenities and details
-  - Location mapping with interactive maps
+### Reviews & Ratings
+- ✅ 5-star rating system
+- ✅ User reviews with comments
+- ✅ Average rating calculation
+- ✅ Review management (edit/delete)
 
-- 🔍 **Advanced Search & Filtering**
-  - Search by location, price range, and amenities
-  - Filter properties by availability and ratings
-  - Real-time search suggestions
+### Search & Filter
+- ✅ Search by location
+- ✅ Filter by category
+- ✅ Price range filtering
+- ✅ Advanced query parameters
 
-- ⭐ **Reviews & Ratings System**
-  - Submit and manage property reviews
-  - Star-based rating system
-  - Review authentication and validation
-  - Average rating calculation
-
-- 📱 **Responsive Design**
-  - Mobile-first approach
-  - Cross-browser compatibility
-  - Optimized for all screen sizes
-
-### Upcoming Features
-
-- 💳 Payment Integration (Stripe/Razorpay)
-- 🔑 OAuth 2.0 Social Login (Google, Facebook)
-- 📧 Email notifications for bookings
-- 💬 Real-time chat between hosts and guests
-- 📊 Host dashboard with analytics
+### UI/UX
+- ✅ Responsive Bootstrap design
+- ✅ Gradient styling and animations
+- ✅ Mobile-friendly interface
+- ✅ Error handling and notifications
+- ✅ Loading states
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Tech Stack
 
 ### Backend
-- **Runtime:** Node.js (v16+)
+- **Runtime:** Node.js
 - **Framework:** Express.js
-- **Database:** MongoDB with Mongoose ODM
-- **Authentication:** Passport.js, express-session
-- **Validation:** Joi for schema validation
-- **Security:** Helmet, express-mongo-sanitize
+- **Database:** MongoDB + Mongoose
+- **Authentication:** Passport.js + JWT
+- **Security:** bcryptjs password hashing
+- **Middleware:** CORS, dotenv
 
 ### Frontend
-- **Template Engine:** EJS (Embedded JavaScript)
-- **Styling:** Bootstrap 5, Custom CSS
-- **JavaScript:** Vanilla JS for client-side interactions
-- **Maps:** Mapbox GL JS for location visualization
+- **Library:** React 18
+- **State Management:** Redux Toolkit
+- **Routing:** React Router v6
+- **HTTP Client:** Axios with interceptors
+- **UI Framework:** Bootstrap 5
+- **Styling:** CSS3
 
-### Cloud Services
-- **Image Storage:** Cloudinary
-- **Database Hosting:** MongoDB Atlas (recommended)
-
-### Development Tools
-- **Version Control:** Git & GitHub
-- **Package Manager:** npm
-- **Code Quality:** ESLint (optional)
+### Infrastructure
+- **Database:** MongoDB Atlas (Cloud)
+- **Backend:** Railway
+- **Frontend:** Vercel
 
 ---
 
@@ -98,237 +96,218 @@ Built as a comprehensive showcase of modern full-stack development practices, Wa
 
 ```
 WanderLust/
-├── controllers/          # Route controllers (business logic)
-│   ├── listing.js
-│   ├── reviews.js
-│   └── users.js
-├── models/              # Mongoose models
-│   ├── listing.js
-│   ├── review.js
-│   └── user.js
-├── routes/              # Express routes
-│   ├── listing.js
-│   ├── review.js
-│   └── user.js
-├── views/               # EJS templates
-│   ├── listings/
-│   ├── users/
-│   ├── includes/
-│   └── layouts/
-├── public/              # Static files (CSS, JS, images)
-│   ├── css/
-│   └── js/
-├── utils/               # Utility functions
-│   ├── ExpressError.js
-│   └── wrapAsync.js
-├── init/                # Database initialization
-│   ├── data.js
-│   └── index.js
-├── middleware.js        # Custom middleware
-├── schema.js            # Joi validation schemas
-├── cloudConfig.js       # Cloudinary configuration
-├── app.js               # Main application file
-└── package.json         # Project dependencies
+├── backend/                    # Express REST API
+│   ├── controllers/           # Business logic
+│   ├── models/               # Mongoose schemas
+│   ├── routes/               # API endpoints
+│   ├── middleware/           # Auth & validation
+│   ├── utils/                # Helper functions
+│   ├── app.js               # Express setup
+│   ├── package.json         # Dependencies
+│   └── .env.example         # Environment template
+│
+├── frontend/                   # React SPA
+│   ├── public/              # Static files
+│   ├── src/
+│   │   ├── pages/          # Page components
+│   │   ├── components/     # Reusable components
+│   │   ├── redux/          # State management
+│   │   ├── services/       # API integration
+│   │   ├── App.js          # Main app component
+│   │   └── index.js        # React entry point
+│   ├── package.json        # Dependencies
+│   └── .env.example        # Environment template
+│
+├── README.md               # This file
+├── SETUP.md               # Setup & deployment guide
+└── .gitignore            # Git ignore rules
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🔧 Quick Start
 
 ### Prerequisites
+- Node.js 16+ and npm
+- MongoDB Atlas account (free tier)
+- Git
 
-Before running this project, ensure you have the following installed:
+### Complete Setup (10 minutes)
 
-- **Node.js** (v16.x or higher) - [Download](https://nodejs.org/)
-- **npm** (comes with Node.js) or **yarn**
-- **MongoDB** (local installation or MongoDB Atlas account)
-- **Git** - [Download](https://git-scm.com/)
+**Step 1: Clone & Install**
+```bash
+git clone <repository-url>
+cd WanderLust
 
-### Installation
+# Backend
+cd backend
+npm install
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Jaykumar-Kale/wanderlust.git
-   cd wanderlust
-   ```
+# Frontend (new terminal)
+cd frontend
+npm install
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+**Step 2: Configure Environment**
 
-3. **Set up environment variables**
-   
-   Create a `.env` file in the root directory and add the following:
-   ```env
-   # Database
-   MONGODB_URL=mongodb://localhost:27017/wanderlust
-   # or use MongoDB Atlas
-   # MONGODB_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/wanderlust
-   
-   # Cloudinary Configuration
-   CLOUD_NAME=your_cloudinary_cloud_name
-   CLOUD_API_KEY=your_cloudinary_api_key
-   CLOUD_API_SECRET=your_cloudinary_api_secret
-   
-   # Session Secret
-   SECRET=your_super_secret_key_here
-   
-   # Mapbox Token (for maps)
-   MAP_TOKEN=your_mapbox_access_token
-   
-   # Server Configuration
-   PORT=3000
-   NODE_ENV=development
-   ```
+Backend (`backend/.env`):
+```
+MONGODB_URL=mongodb+srv://user:password@cluster.mongodb.net/wanderlust
+JWT_SECRET=your_secret_key_min_32_characters
+PORT=5000
+NODE_ENV=development
+CORS_ORIGIN=http://localhost:3000
+```
 
-4. **Seed the database** (optional)
-   ```bash
-   node init/index.js
-   ```
+Frontend (`frontend/.env`):
+```
+REACT_APP_API_URL=http://localhost:5000/api
+```
 
-5. **Start the development server**
-   ```bash
-   npm start
-   ```
+**Step 3: Start Development Servers**
 
-6. **Open your browser**
-   
-   Navigate to `http://localhost:3000`
+Terminal 1 - Backend:
+```bash
+cd backend
+npm start
+# Server running on http://localhost:5000
+```
+
+Terminal 2 - Frontend:
+```bash
+cd frontend
+npm start
+# App opens at http://localhost:3000
+```
+
+✅ **Done!** App is running at http://localhost:3000
 
 ---
 
-## 🔧 Configuration
+## 🧪 Test the Application
 
-### MongoDB Setup
-
-**Option 1: Local MongoDB**
-- Install MongoDB Community Edition
-- Start MongoDB service
-- Use connection string: `mongodb://localhost:27017/wanderlust`
-
-**Option 2: MongoDB Atlas (Cloud)**
-- Create a free account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- Create a new cluster
-- Get your connection string
-- Add it to your `.env` file
-
-### Cloudinary Setup
-
-1. Create a free account at [Cloudinary](https://cloudinary.com/)
-2. Get your Cloud Name, API Key, and API Secret from the dashboard
-3. Add them to your `.env` file
-
-### Mapbox Setup
-
-1. Sign up at [Mapbox](https://www.mapbox.com/)
-2. Create an access token
-3. Add it to your `.env` file
+1. **Sign up** at `/signup`
+2. **Create a listing** at `/listings/new`
+3. **Browse listings** at `/`
+4. **Search** by location
+5. **Filter** by category or price
+6. **Leave reviews** on listings
+7. **Manage** your listings at `/my-listings`
 
 ---
 
-## 📸 Screenshots
+## 📚 API Documentation
 
-> Add screenshots of your application here to showcase the UI/UX
+### Base URL
+```
+http://localhost:5000/api
+```
 
-*(Coming soon)*
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/users/register` | Create account |
+| POST | `/users/login` | User login |
+| GET | `/users/me` | Get current user (protected) |
+
+### Listings
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/listings` | Get all listings |
+| GET | `/listings/:id` | Get listing details |
+| POST | `/listings` | Create listing (protected) |
+| PUT | `/listings/:id` | Update listing (protected) |
+| DELETE | `/listings/:id` | Delete listing (protected) |
+
+### Reviews
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/reviews/listing/:id` | Get reviews |
+| POST | `/reviews/:id/reviews` | Add review (protected) |
+| DELETE | `/reviews/:id/reviews/:reviewId` | Delete review (protected) |
 
 ---
 
-## 🚀 Deployment
+## 🌐 Deployment
 
-### Backend Deployment (Render/Railway)
+### Backend → Railway
 
-1. Create an account on [Render](https://render.com/) or [Railway](https://railway.app/)
-2. Connect your GitHub repository
-3. Add environment variables
-4. Deploy!
+```bash
+npm install -g @railway/cli
+cd backend
+railway init
+railway variable add MONGODB_URL=<your-url>
+railway variable add JWT_SECRET=<your-key>
+railway up
+```
 
-### Database (MongoDB Atlas)
+### Frontend → Vercel
 
-- Already cloud-hosted if using MongoDB Atlas
-- Ensure IP whitelist includes deployment platform IPs
+```bash
+npm install -g vercel
+cd frontend
+vercel
+```
+
+### Database → MongoDB Atlas
+
+1. Create free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Create database user
+3. Whitelist IPs (0.0.0.0/0 for development)
+4. Copy connection string to .env
+
+**See [SETUP.md](./SETUP.md) for detailed deployment instructions.**
 
 ---
 
 ## 🔐 Security Features
 
-- Password hashing using bcrypt
-- MongoDB injection prevention with express-mongo-sanitize
-- XSS protection with Helmet.js
-- CSRF protection with csurf
-- Session security with secure cookies
-- Input validation and sanitization with Joi
+- ✅ Password hashing with bcryptjs
+- ✅ JWT token authentication
+- ✅ Protected API endpoints
+- ✅ Protected React routes
+- ✅ CORS configuration
+- ✅ Input validation on backend
+- ✅ Error handling & sanitization
+- ✅ Environment variables for secrets
 
 ---
 
-## 🗺️ Roadmap
+## 🐛 Troubleshooting
 
-| Feature                | Status       | Priority |
-|------------------------|--------------|----------|
-| User Authentication    | ✅ Complete  | High     |
-| Property CRUD          | ✅ Complete  | High     |
-| Reviews & Ratings      | ✅ Complete  | High     |
-| Search & Filters       | ✅ Complete  | Medium   |
-| Image Upload           | ✅ Complete  | High     |
-| Interactive Maps       | ✅ Complete  | Medium   |
-| Payment Integration    | 🔲 Planned   | High     |
-| OAuth Login            | 🔲 Planned   | Medium   |
-| Real-time Chat         | 🔲 Planned   | Low      |
-| Email Notifications    | 🔲 Planned   | Medium   |
-| Host Dashboard         | 🔲 Planned   | Medium   |
-| Mobile App             | 🔲 Future    | Low      |
-
----
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+| Issue | Solution |
+|-------|----------|
+| MongoDB connection fails | Verify MONGODB_URL in .env |
+| Port 5000 already in use | Change PORT in .env or kill process |
+| Frontend can't reach API | Check REACT_APP_API_URL in frontend .env |
+| npm install fails | Delete node_modules and package-lock.json, retry |
+| CORS errors | Verify CORS_ORIGIN in backend .env matches frontend URL |
 
 ---
 
 ## 📝 License
 
-Distributed under the MIT License. See `LICENSE` file for more information.
+This project is open source and available under the MIT License.
 
 ---
 
-## 👨‍💻 Author
+## 🤝 Contributing
 
-**Jaykumar Kale**
-
-- GitHub: [@Jaykumar-Kale](https://github.com/Jaykumar-Kale)
-- LinkedIn: [Connect with me](https://linkedin.com/in/your-profile)
-- Email: jaykumarkale.pict@gmail.com
-
----
-
-## 🙏 Acknowledgments
-
-- Inspired by [Airbnb](https://www.airbnb.com/)
-- [Express.js Documentation](https://expressjs.com/)
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [Bootstrap](https://getbootstrap.com/)
-- [Cloudinary](https://cloudinary.com/)
-- [Mapbox](https://www.mapbox.com/)
-
----
-
-## 📞 Support
-
-If you like this project, please ⭐ star this repository and share it with others!
-
-For support, email your.email@example.com or open an issue in the repository.
+Contributions are welcome! Please feel free to:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
 <div align="center">
-  <p>Made with ❤️ by Jaykumar Kale</p>
-  <p>© 2026 WanderLust. All rights reserved.</p>
+
+**[↑ back to top](#-wanderlust---mern-stack-application)**
+
+⭐ Star this repo if you found it helpful!
+
+Made with ❤️ for the web development community
+
 </div>
