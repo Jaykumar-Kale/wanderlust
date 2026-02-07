@@ -57,7 +57,7 @@ module.exports.show = wrapAsync(async (req, res) => {
 });
 
 module.exports.create = wrapAsync(async (req, res) => {
-  const { title, description, price, location, country, category, amenities, bedrooms, bathrooms, maxGuests } = req.body;
+  const { title, description, imageUrl, price, location, country, category, amenities, bedrooms, bathrooms, maxGuests } = req.body;
 
   const newListing = new Listing({
     title,
@@ -72,8 +72,8 @@ module.exports.create = wrapAsync(async (req, res) => {
     maxGuests,
     owner: req.user.id,
     image: {
-      url: "https://via.placeholder.com/400x300?text=Listing+Image",
-      filename: "placeholder"
+      url: imageUrl || "https://via.placeholder.com/400x300?text=Listing+Image",
+      filename: "user_uploaded"
     }
   });
 

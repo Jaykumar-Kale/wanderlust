@@ -9,6 +9,7 @@ export default function CreateListing() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
+    imageUrl: '',
     price: '',
     location: '',
     country: '',
@@ -80,6 +81,21 @@ export default function CreateListing() {
                   onChange={handleChange}
                   required
                 />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Image URL</Form.Label>
+                <Form.Control
+                  type="url"
+                  name="imageUrl"
+                  placeholder="https://images.unsplash.com/photo-xxxxx"
+                  value={formData.imageUrl}
+                  onChange={handleChange}
+                  required
+                />
+                <Form.Text className="text-muted">
+                  Enter a valid image URL (e.g., from Unsplash)
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3">
